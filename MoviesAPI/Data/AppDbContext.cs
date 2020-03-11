@@ -12,7 +12,5 @@ namespace MoviesAPI.Data
         }
 
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<MovieTitle> MovieTitles { get; set; }
-        public DbSet<ApiConfig> ApiConfigs { get; set; }
     }
 }

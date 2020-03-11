@@ -19,24 +19,42 @@ namespace MoviesAPI
     public class MovieProcessor
     {
         private string uri;
+        private string apiKey;
 
         public MovieProcessor()
         {            
             uri = ApiHelper.ApiClient.BaseAddress.ToString();
+            apiKey = ApiHelper.ApiKey.ToString();
         }
 
-        public async Task<ApiConfig> LoadToken()
+        public async Task<String> SearchMovies(string searchString)
         {
-            HttpContent content = TokenContent();
-            string loginUri = LoginUri();
+            string searchUri = SearchUri(searchString);
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(searchUri))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsAsync<String>();
+                    return result;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task<String> GetMovieById(int id)
+        {
+            string getByIdUri = GetByIdUri(id);
             
 
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsync(loginUri, content))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(getByIdUri))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    ApiConfig newtoken = await response.Content.ReadAsAsync<ApiConfig>();
-                    return newtoken;
+                    string result = await response.Content.ReadAsAsync<String>();
+                    return result;
                 }
                 else
                 {
@@ -45,51 +63,14 @@ namespace MoviesAPI
             }
         }
 
-        public async Task<MovieTitle> LoadIds(string token)
+        private string SearchUri(string searchString)
         {
-            string movieUpdatesUri = MovieUpdatesUri();
-            ApiHelper.ApiClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(movieUpdatesUri))
-            {
-                
-                if (response.IsSuccessStatusCode)
-                {
-                    MovieTitle movieTitles = await response.Content.ReadAsAsync<MovieTitle>();
-                    Console.WriteLine(movieTitles);
-                    return movieTitles;
-                }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
-
-            }
-
+            return uri + "?s=" + searchString + "&apiKey=" + apiKey;
         }
 
-        private HttpContent TokenContent()
+        private string GetByIdUri(int id)
         {
-            var payload = new Dictionary<string, string>
-            {
-              {"apiKey", ApiHelper.ApiKey},
-              {"userName", ApiHelper.UserName},
-              {"userKey", ApiHelper.UserKey}
-            };
-
-            string strPayload = JsonConvert.SerializeObject(payload);
-            HttpContent content = new StringContent(strPayload, Encoding.UTF8, "application/json");
-            return content;
-        }
-
-        private string LoginUri()
-        {
-            return uri + "login";
-        }
-
-        private string MovieUpdatesUri()
-        {
-            return uri + "movieupdates";
+            return uri + "?i=" + id + "&apiKey" + apiKey;
         }
     }
 }

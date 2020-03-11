@@ -9,8 +9,6 @@ namespace MoviesAPI
         public static HttpClient ApiClient { get; set; }
         public static string Uri { get; set; }
         public static string ApiKey { get; set; }
-        public static string UserName { get; set; }
-        public static string UserKey { get; set; }
 
         public static void InitializeClient()
         {
@@ -30,11 +28,9 @@ namespace MoviesAPI
                 .AddJsonFile("appsettings.json", optional: false)
                 .Build();
 
-            IConfigurationSection ApiSection = config.GetSection("TvdbCredentials");
+            IConfigurationSection ApiSection = config.GetSection("OmdbCredentials");
             Uri = ApiSection["Uri"];
             ApiKey = ApiSection["ApiKey"];
-            UserName = ApiSection["UserName"];
-            UserKey = ApiSection["UserKey"];
         }
     }
 }
