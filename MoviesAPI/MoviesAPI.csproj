@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Compile Remove="WeatherForecast.cs" />
+    <Compile Remove="Migrations\20200309210759_Initial.cs" />
+    <Compile Remove="Migrations\20200309210759_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200309211507_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200309211507_Initial.cs" />
+    <Compile Remove="Migrations\20200309212026_Initial.cs" />
+    <Compile Remove="Migrations\20200309212026_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200309214103_Initial.cs" />
+    <Compile Remove="Migrations\20200309214103_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200309214312_Initial.cs" />
+    <Compile Remove="Migrations\20200309214312_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200309214513_Initial.cs" />
+    <Compile Remove="Migrations\20200309214513_Initial.Designer.cs" />
+    <Compile Remove="Migrations\AppDbContextModelSnapshot.cs" />
+    <Compile Remove="Models\EmptyClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+  </ItemGroup>
+</Project>
