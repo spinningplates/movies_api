@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using MoviesAPI.Models;
+using Newtonsoft.Json.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,13 +24,14 @@ namespace MoviesAPI.Controllers
             movieProcessor = new MovieProcessor();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> SearchByTitle([FromBody]string title)
+        [HttpPost]
+        public async Task<IActionResult> SearchByTitle([FromBody]Search search)
         {
             try
             {
-                string searchResults = await movieProcessor.SearchMovies(title);
-                return Ok(searchResults);
+                JObject searchResults = await movieProcessor.SearchMovies(search.TitleSearch);
+
+                return new JsonResult(searchResults);
             }
             catch (Exception ex)
             {

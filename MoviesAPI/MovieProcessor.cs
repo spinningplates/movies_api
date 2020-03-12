@@ -27,15 +27,16 @@ namespace MoviesAPI
             apiKey = ApiHelper.ApiKey.ToString();
         }
 
-        public async Task<String> SearchMovies(string searchString)
+        public async Task<JObject> SearchMovies(string searchString)
         {
             string searchUri = SearchUri(searchString);
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(searchUri))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    string result = await response.Content.ReadAsAsync<String>();
-                    return result;
+                    string result = await response.Content.ReadAsStringAsync();
+                    JObject jsonResult = JObject.Parse(result);
+                    return jsonResult;
                 }
                 else
                 {

@@ -37,6 +37,7 @@ namespace MoviesAPI
                                                       );
             });
             services.AddControllers();
+            services.AddMvc().AddNewtonsoftJson();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -51,6 +52,8 @@ namespace MoviesAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthorization();
 

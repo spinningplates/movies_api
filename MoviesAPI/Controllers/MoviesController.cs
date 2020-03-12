@@ -23,7 +23,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEntries()
+        public IActionResult GetMovies()
         {
             try
             {
