@@ -16,10 +16,12 @@ namespace MoviesAPI.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly AppDbContext _db;
+        private readonly MovieProcessor movieProcessor;
 
         public MoviesController(AppDbContext db)
         {
             _db = db;
+            movieProcessor = new MovieProcessor();
         }
 
         [HttpGet]
@@ -64,7 +66,8 @@ namespace MoviesAPI.Controllers
                     return new JsonResult("Error while creating new entry.");
                 }
 
-                _db.Movies.Add(objMovie);
+                Movie updatedMovieData = await movieProcessor.GetMovieById(objMovie.imdbId);
+                _db.Movies.Add(updatedMovieData);
                 await _db.SaveChangesAsync();
                 return new JsonResult("Movie was added.");
             }

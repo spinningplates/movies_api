@@ -45,7 +45,7 @@ namespace MoviesAPI
             }
         }
 
-        public async Task<String> GetMovieById(int id)
+        public async Task<Movie> GetMovieById(string id)
         {
             string getByIdUri = GetByIdUri(id);
             
@@ -54,8 +54,10 @@ namespace MoviesAPI
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    string result = await response.Content.ReadAsAsync<String>();
-                    return result;
+                    string result = await response.Content.ReadAsStringAsync();
+                    Movie movie = Newtonsoft.Json.JsonConvert.DeserializeObject<Movie>(result);
+
+                    return movie;
                 }
                 else
                 {
@@ -69,9 +71,9 @@ namespace MoviesAPI
             return uri + "?s=" + searchString + "&apiKey=" + apiKey;
         }
 
-        private string GetByIdUri(int id)
+        private string GetByIdUri(string id)
         {
-            return uri + "?i=" + id + "&apiKey" + apiKey;
+            return uri + "?i=" + id + "&apiKey=" + apiKey;
         }
     }
 }

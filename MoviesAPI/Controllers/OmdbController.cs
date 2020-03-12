@@ -39,18 +39,19 @@ namespace MoviesAPI.Controllers
             }            
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute]int id)
-        {
-            try
-            {
-                string omdbMovie = await movieProcessor.GetMovieById(id);
-                return Ok(omdbMovie);
-            }
-            catch (Exception ex)
-            {
-                return new JsonResult(ex.Message);
-            }
-        }
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetById([FromRoute]string id)
+        //{
+        //    try
+        //    {
+        //        string omdbMovie = await movieProcessor.GetMovieById(id);
+
+        //        return Ok("thank you");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new JsonResult(ex.Message);
+        //    }
+        //}
     }
 }
