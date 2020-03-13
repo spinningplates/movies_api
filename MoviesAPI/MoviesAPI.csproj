@@ -28,6 +28,7 @@
     <Compile Remove="Migrations\AppDbContextModelSnapshot.cs" />
     <Compile Remove="Models\EmptyClass.cs" />
     <Compile Remove="Models\MoviePreview.cs" />
+    <Compile Remove="Controllers\OmdbController.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />

@@ -7,10 +7,11 @@ using MoviesAPI.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace MoviesAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [EnableCors("AllowOrigin")]
     public class MoviesController : ControllerBase
@@ -49,6 +50,21 @@ namespace MoviesAPI.Controllers
                     return NotFound();
                 }
                 return Ok(movie);
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchByTitle([FromBody]Search search)
+        {
+            try
+            {
+                JObject searchResults = await movieProcessor.SearchMovies(search.TitleSearch);
+
+                return new JsonResult(searchResults);
             }
             catch (Exception ex)
             {
