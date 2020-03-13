@@ -93,6 +93,26 @@ namespace MoviesAPI.Controllers
             }
         }
 
+        [HttpPost("{id}")]
+        public async Task<IActionResult> UpdateMovie([FromRoute]int id, [FromBody] Movie objMovie)
+        {
+            try
+            {
+                if (objMovie == null || id != objMovie.Id)
+                {
+                    return new JsonResult("Entry was not found.");
+                }
+
+                _db.Movies.Update(objMovie);
+                await _db.SaveChangesAsync();
+                return new JsonResult("Entry was updated.");
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie([FromRoute] int id)
         {
