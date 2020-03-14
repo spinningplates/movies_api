@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace MoviesAPI.Controllers
 {
@@ -106,6 +107,27 @@ namespace MoviesAPI.Controllers
                 _db.Movies.Update(objMovie);
                 await _db.SaveChangesAsync();
                 return new JsonResult("Entry was updated.");
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CategorySearch([FromBody] ValueSearch valueSearch)
+        {
+            try
+            {
+
+                string fieldName = valueSearch.CategoryName.ToString();
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                fieldName = textInfo.ToTitleCase(fieldName);
+                string lowervalue = valueSearch.CategoryValue.ToLower();
+                
+                IEnumerable<Movie> result = _db.Movies.AsEnumerable().Where(n => n.GetType().GetProperty(fieldName).GetValue(n, null).ToString().ToLower().Contains(lowervalue));
+
+                return Ok(result);
             }
             catch (Exception ex)
             {
