@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MoviesAPI.Data;
 using MoviesAPI.Models;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Globalization;

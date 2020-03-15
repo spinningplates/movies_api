@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Configuration;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using MoviesAPI.Data;
 using MoviesAPI.Models;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 
 namespace MoviesAPI
 {
