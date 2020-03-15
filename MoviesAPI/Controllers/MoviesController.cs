@@ -125,7 +125,13 @@ namespace MoviesAPI.Controllers
                 fieldName = textInfo.ToTitleCase(fieldName);
                 string lowervalue = valueSearch.CategoryValue.ToLower();
                 
-                IEnumerable<Movie> result = _db.Movies.AsEnumerable().Where(n => n.GetType().GetProperty(fieldName).GetValue(n, null).ToString().ToLower().Contains(lowervalue));
+                IEnumerable<Movie> result = _db.Movies.AsEnumerable()
+                                             .Where(n => n.GetType()
+                                                          .GetProperty(fieldName)
+                                                          .GetValue(n, null)
+                                                          .ToString()
+                                                          .ToLower()
+                                                          .Contains(lowervalue));
 
                 return Ok(result);
             }
